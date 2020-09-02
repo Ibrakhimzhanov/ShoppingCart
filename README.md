@@ -1,6 +1,7 @@
 # JavaScript ShoppingCart
 
-Date of writing the code is September 2, 2020  \n 
+Date of writing the code is September 2, 2020  
+
 Last update 2-September 2020
 
 Shopping Cart 
@@ -11,10 +12,12 @@ Shopping Cart
 5) When a course is removed from the shopping cart, should be removed also from Local Storage.
 
 
-Дата написания кода 2-Сентября 2020 года \n
-Последнее обновления 2-Сентября 2020 года \n
+Дата написания кода 2-Сентября 2020 года 
 
-// ***************** Russian ***************** \
+Последнее обновления 2-Сентября 2020 года 
+
+
+/ ***************** Russian ***************** \
 Корзина покупателя
 1) Пользователь может добавлять курсы в корзину.
 2) Пользователь может удалить курсы из корзины.
