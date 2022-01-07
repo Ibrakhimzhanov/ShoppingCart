@@ -2,7 +2,7 @@
 
 Date of writing the code is September 2, 2020  
 
-Last update 2-September 2020
+Latest updates 07-January 2022
 
 Shopping Cart 
 1) User can add courses into the shopping cart.
