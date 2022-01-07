@@ -11,13 +11,14 @@ Shopping Cart
 4) Shopping Cart going to display the contents from the Local Storage on page load.
 5) When a course is removed from the shopping cart, should be removed also from Local Storage.
 
+/ ***************** Russian ***************** \
 
 Дата написания кода 2-Сентября 2020 года 
 
-Последнее обновления 2-Сентября 2020 года 
+Последнее обновления 07-Январь 2022 года 
 
 
-/ ***************** Russian ***************** \
+
 Корзина покупателя
 1) Пользователь может добавлять курсы в корзину.
 2) Пользователь может удалить курсы из корзины.
