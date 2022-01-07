@@ -1,50 +1,46 @@
-const courses = document.querySelector('#courses-list'),
-      shoppingCartContent = document.querySelector('#cart-content tbody'),
-      clearCartBtn = document.querySelector('#clear-cart');
-
+const courses = document.querySelector("#courses-list"),
+  shoppingCartContent = document.querySelector("#cart-content tbody"),
+  clearCartBtn = document.querySelector("#clear-cart");
 
 // Listeners
 
-loadEventListeners();
+attachEventListeners();
 
-function loadEventListeners() {
+function attachEventListeners() {
   // Когда добавляются новые курсы
-  courses.addEventListener('click', buyCourse);
+  courses.addEventListener("click", buyCourse);
 
   // Когда нажата кнопка удаления
-  shoppingCartContent.addEventListener('click', removeCourse);
+  shoppingCartContent.addEventListener("click", removeCourse);
 
   // Кнопка очистить корзину
-  clearCartBtn.addEventListener('click', clearCart);
+  clearCartBtn.addEventListener("click", clearCart);
 
   // Чтение документа
-  document.addEventListener('DOMContentLoaded', getFromLocalStorage)
+  document.addEventListener("DOMContentLoaded", getFromLocalStorage);
 }
-
-
 
 // Functions
 
-function buyCourse(e) {
+function buyCourse(event) {
   // Используйте делегирование, чтобы найти добавленный курс
-  if(e.target.classList.contains('add-to-cart')) {
-    
+  if (event.target.classList.contains("add-to-cart")) {
     // Прочитать стоимость курса
-    const course =  e.target.parentElement.parentElement;
+    const course = event.target.parentElement.parentElement;
 
     // Прочитать значение
     getCourseInfo(course);
   }
 }
 // Читает информацию в формате Html выбранного курса
-function getCourseInfo(course) { 
+function getCourseInfo(course) {
   // Создать объект с данными курса
   const courseInfo = {
-    image: course.querySelector('img').src,
-    title: course.querySelector('h4').textContent,
-    price: course.querySelector('.price span').textContent,
-    id: course.querySelector('a').getAttribute('data-id')
-  }
+    image: course.querySelector("img").src,
+    title: course.querySelector("h4").textContent,
+    price: course.querySelector(".price span").textContent,
+    id: course.querySelector("a").getAttribute("data-id"),
+  };
   // Вставить в карту покупок
   addIntoCard(courseInfo);
 }
@@ -52,7 +48,7 @@ function getCourseInfo(course) {
 
 function addIntoCard(course) {
   // Создать  <tr>
-  const row = document.createElement('tr');
+  const row = document.createElement("tr");
 
   // Создайте шаблон
   row.innerHTML = `
@@ -68,10 +64,10 @@ function addIntoCard(course) {
     </tr>
   `;
   // Добавить в корзину
-    shoppingCartContent.appendChild(row)
-  
+  shoppingCartContent.appendChild(row);
+
   // Добавить курс в хранилище
-  saveIntoStorage(course)
+  saveIntoStorage(course);
 }
 // Добавить курсы в локальное хранилище
 
@@ -81,7 +77,7 @@ function saveIntoStorage(course) {
   // добавить курсы в массив
   courses.push(course);
   // поскольку хранилище сохраняет только строки, нам нужно преобразовать JSON в String
-  localStorage.setItem('courses', JSON.stringify(courses) );
+  localStorage.setItem("courses", JSON.stringify(courses));
 }
 
 // Достать содержимое из хранилища
@@ -89,51 +85,52 @@ function getCoursesFromStorage() {
   let courses;
 
   // если что-то существует в хранилище, мы получаем значение, в противном случае создаем пустой массив
-  if(localStorage.getItem('courses') === null) {
+  if (localStorage.getItem("courses") === null) {
     courses = [];
   } else {
-    courses = JSON.parse(localStorage.getItem('courses') );
+    courses = JSON.parse(localStorage.getItem("courses"));
   }
   return courses;
 }
-// удалить курс из DOM
 
-function removeCourse(e) {
+// удалить курс из DOM
+function removeCourse(event) {
   let course, courseId;
-  if (e.target.classList.contains('remove')) {
-    e.target.parentElement.parentElement.remove();
-    course = e.target.parentElement.parentElement;
-    courseId = course.querySelector('a').getAttribute('data-id');
+  if (event.target.classList.contains("remove")) {
+    event.target.parentElement.parentElement.remove();
+    course = event.target.parentElement.parentElement;
+    courseId = course.querySelector("a").getAttribute("data-id");
   }
-  
+
   // удалить из локального хранилища
-  removeCourseLocalStorage(courseId)
+  removeCourseLocalStorage(courseId);
 }
+
 //удалить из локального хранилища
 function removeCourseLocalStorage(id) {
   //получить данные локального хранилища
   let coursesLS = getCoursesFromStorage();
 
   //пройтись по массиву и найти индекс для удаления
-  coursesLS.forEach(function(courseLS, index) {
-    if(courseLS.id === id) {
+  coursesLS.forEach(function (courseLS, index) {
+    if (courseLS.id === id) {
       coursesLS.splice(index, 1);
     }
-  }); 
+  });
 
   // Добавьте остальную часть массива
-  localStorage.setItem('courses', JSON.stringify(coursesLS) );
+  localStorage.setItem("courses", JSON.stringify(coursesLS));
 }
 
 // Очищает корзину
 function clearCart() {
   // shoppingCartContent.innerHTML = '';
 
-  while(shoppingCartContent.firstChild) {
-    shoppingCartContent.removeChild(shoppingCartContent.firstChild)
+  while (shoppingCartContent.firstChild) {
+    shoppingCartContent.removeChild(shoppingCartContent.firstChild);
   }
 
-  // Очищение хранилища 
+  // Очищение хранилища
   clearLocalStorage();
 }
 // Очищает все локальное хранилище
@@ -145,11 +142,11 @@ function clearLocalStorage() {
 function getFromLocalStorage() {
   let coursesLS = getCoursesFromStorage();
 
-// ПЕРЕЙТИ по курсам и распечатайте их в корзине
-  coursesLS.forEach(function(course){
+  // ПЕРЕЙТИ по курсам и распечатайте их в корзине
+  coursesLS.forEach(function (course) {
     // Создать <tr>
-    const row = document.createElement('tr');
-     // Создайте шаблон
+    const row = document.createElement("tr");
+    // Создайте шаблон
     row.innerHTML = `
       <tr>
         <td>
@@ -162,7 +159,8 @@ function getFromLocalStorage() {
         </td>
       </tr>
     `;
+
     // Добавить в корзину
-    shoppingCartContent.appendChild(row)
+    shoppingCartContent.appendChild(row);
   });
 }
